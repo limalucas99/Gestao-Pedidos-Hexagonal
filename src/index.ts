@@ -1,0 +1,1 @@
+console.log("Vai dar merda, vai!")
