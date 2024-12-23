@@ -1,7 +1,7 @@
-import { ProductRepository } from '@/application/ports/repositories/product-repository';
-import { Product } from '@/domain/product';
-import { DBProduct } from '@/infraestructure/driven/db/entities/db-product';
+import { ProductRepository } from '@/domain/repositories/product-repository';
+import { Product } from '@/domain/entities/product';
 import { Repository } from 'typeorm';
+import { DBProduct } from '@/infrastructure/driven/db/entities/db-product';
 
 export class ProductDBRepository implements ProductRepository {
   constructor(private repository: Repository<DBProduct>) {}

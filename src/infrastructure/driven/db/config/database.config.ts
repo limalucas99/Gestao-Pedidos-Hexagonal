@@ -1,4 +1,4 @@
-import { DBProduct } from '@/infraestructure/driven/db/entities/db-product';
+import { DBProduct } from '@/infrastructure/driven/db/entities/db-product';
 import { DataSource } from 'typeorm';
 
 export const AppDataSource = new DataSource({
@@ -11,5 +11,5 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: ['error', 'warn'],
   entities: [DBProduct], 
-  migrations: [`${__dirname}/../infrastructure/driven/db/migrations/*.ts`], 
+  migrations: [`../migrations/*.ts`], 
 });

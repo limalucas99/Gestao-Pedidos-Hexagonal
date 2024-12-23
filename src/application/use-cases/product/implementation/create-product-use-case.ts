@@ -1,7 +1,7 @@
-import { CreateProduct } from '@/application/ports/use-cases/create-product';
-import { ProductRepository } from '@/application/ports/repositories/product-repository';
-import { CreateProductDTO } from '@/application/dto/order/create-product-dto';
-import { Product } from '@/domain/product';
+import { CreateProduct } from '@/application/use-cases/product/ports/create-product';
+import { ProductRepository } from '@/domain/repositories/product-repository';
+import { CreateProductDTO } from '@/application/use-cases/product/dto/create-product-dto';
+import { Product } from '@/domain/entities/product';
 
 export class CreateProductUseCase implements CreateProduct {
   constructor(private productRepository: ProductRepository) {}

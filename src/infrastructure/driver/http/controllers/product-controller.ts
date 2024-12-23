@@ -1,11 +1,11 @@
-import { CreateProductUseCase } from '@/application/use-cases/product/create-product-use-case';
+import { CreateProductUseCase } from '@/application/use-cases/product/implementation/create-product-use-case';
 // import { UpdateProductUseCase } from '@/application/use-cases/product/update-product-use-case';
 // import { DeleteProductUseCase } from '@/application/use-cases/product/delete-product-use-case';
 // import { FindProductByIdUseCase } from '@/application/use-cases/product/find-product-by-id-use-case';
 // import { FindAllProductsUseCase } from '@/application/use-cases/product/find-all-products-use-case';
 import { Request, Response } from 'express';
 import { plainToInstance } from 'class-transformer';
-import { CreateProductDTO } from '@/application/dto/order/create-product-dto';
+import { CreateProductDTO } from '@/application/use-cases/product/dto/create-product-dto';
 import { validate } from 'class-validator';
 
 export class ProductController {
@@ -19,6 +19,7 @@ export class ProductController {
 
   create = async (req: Request, res: Response): Promise<Response> => {
     try {
+      // move this block to a method to avoid repetitions (DRY)
       const createProductDto = plainToInstance(CreateProductDTO, req.body);
       const errors = await validate(createProductDto);
       if (errors.length > 0) {

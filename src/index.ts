@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
-import productRoutes from '@/infraestructure/driver/http/routes/product-routes';
-import { AppDataSource } from '@/config/database.config';
+import productRoutes from '@/infrastructure/driver/http/routes/product-routes';
+import { AppDataSource } from '@/infrastructure/driven/db/config/database.config';
 
 const app = express();
 app.use(express.json());

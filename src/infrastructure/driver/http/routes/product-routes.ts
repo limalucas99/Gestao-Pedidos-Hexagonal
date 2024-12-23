@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { productControllerFactory } from '@/factories/product-controller-factory';
+import { makeProductController } from '@/application/factories/controllers/product-controller-factory';
 
 const router = Router();
-const productController = productControllerFactory();
+const productController = makeProductController();
 
 router.post('/products', productController.create);
 
