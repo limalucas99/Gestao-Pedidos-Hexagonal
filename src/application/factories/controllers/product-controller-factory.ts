@@ -1,27 +1,37 @@
 import { ProductController } from '@/infrastructure/driver/http/controllers/product-controller';
-import { CreateProductUseCase } from '@/application/use-cases/product/implementation/create-product-use-case';
-// import { UpdateProductUseCase } from '@/application/use-cases/product/update-product-use-case';
-// import { DeleteProductUseCase } from '@/application/use-cases/product/delete-product-use-case';
-// import { FindProductByIdUseCase } from '@/application/use-cases/product/find-product-by-id-use-case';
-// import { FindAllProductsUseCase } from '@/application/use-cases/product/find-all-products-use-case';
+import { CreateProductUseCase } from '@/application/use-cases/product/implementations/create-product-use-case';
 import { ProductDBRepository } from '@/infrastructure/driven/db/repositories/product-db-repository';
 import { AppDataSource } from '@/infrastructure/driven/db/config/database.config';
-import { DBProduct } from '@/infrastructure/driven/db/entities/db-product';
+import { ProductDb } from '@/infrastructure/driven/db/entities/product-db';
+import { CategoryDb } from '@/infrastructure/driven/db/entities/category-db';
+import { FindProductByIdUseCase } from '@/application/use-cases/product/implementations/find-product-by-id-use-case';
+import { CategoryDBRepository } from '@/infrastructure/driven/db/repositories/category-db-repository';
+import { EditProductUseCase } from '@/application/use-cases/product/implementations/edit-product-use-case';
+import { DeleteProductUseCase } from '@/application/use-cases/product/implementations/delete-product-use-case';
 
 export function makeProductController(): ProductController {
-  const productRepository = new ProductDBRepository(AppDataSource.getRepository(DBProduct));
+  try {
+    const productRepository = new ProductDBRepository(
+      AppDataSource.getRepository(ProductDb),
+    );
 
-  const createProductUseCase = new CreateProductUseCase(productRepository);
-  // const updateProductUseCase = new UpdateProductUseCase(productRepository);
-  // const deleteProductUseCase = new DeleteProductUseCase(productRepository);
-  // const findProductByIdUseCase = new FindProductByIdUseCase(productRepository);
-  // const findAllProductsUseCase = new FindAllProductsUseCase(productRepository);
-
-  return new ProductController(
-    createProductUseCase,
-    // updateProductUseCase,
-    // deleteProductUseCase,
-    // findProductByIdUseCase,
-    // findAllProductsUseCase
-  );
+    const categoryRepository = new CategoryDBRepository(
+      AppDataSource.getRepository(CategoryDb),
+    )
+  
+    const createProductUseCase = new CreateProductUseCase(productRepository, categoryRepository);
+    const findProductByIdUseCase = new FindProductByIdUseCase(productRepository);
+    const editProductUseCase = new EditProductUseCase(productRepository, categoryRepository);
+    const deleteProductUseCase = new DeleteProductUseCase(productRepository);
+  
+    return new ProductController(
+      createProductUseCase,
+      findProductByIdUseCase,
+      editProductUseCase,
+      deleteProductUseCase
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Error ${error} on product controller factory`);
+  }
 }
