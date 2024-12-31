@@ -1,12 +1,12 @@
 import 'reflect-metadata';
 import express from 'express';
-import productRoutes from '@/infrastructure/driver/http/routes/product-routes';
+import routes from '@/infrastructure/driver/http/routes';
 import { AppDataSource } from '@/infrastructure/driven/db/config/database.config';
 
 const app = express();
 app.use(express.json());
 
-app.use('/api', productRoutes);
+app.use('/v1', routes);
 
 AppDataSource.initialize()
   .then(() => {

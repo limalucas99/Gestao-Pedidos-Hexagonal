@@ -4,14 +4,12 @@ import { makeProductController } from '@/application/factories/controllers/produ
 const router = Router();
 const productController = makeProductController();
 
-router.post('/products', productController.create);
+router.post('', productController.create);
 
-// router.put('/products/:id', productController.update);
+router.get('/:id', productController.findById);
 
-// router.delete('/products/:id', productController.delete);
+router.patch('/:id', productController.edit);
 
-// router.get('/products/:id', productController.findById);
-
-// router.get('/products', productController.findAll);
+router.delete('/:id', productController.delete);
 
 export default router;
