@@ -1,5 +1,8 @@
-import { DBProduct } from '@/infrastructure/driven/db/entities/db-product';
+import { ProductDb } from '@/infrastructure/driven/db/entities/product-db';
 import { DataSource } from 'typeorm';
+import { ClientDb } from '@/infrastructure/driven/db/entities/client-db';
+import { CategoryDb } from '@/infrastructure/driven/db/entities/category-db';
+import { OrderDb } from '@/infrastructure/driven/db/entities/order-db';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -10,6 +13,6 @@ export const AppDataSource = new DataSource({
   database: 'order-management',
   synchronize: true,
   logging: ['error', 'warn'],
-  entities: [DBProduct], 
+  entities: [ProductDb, ClientDb, CategoryDb, OrderDb], 
   migrations: [`../migrations/*.ts`], 
 });

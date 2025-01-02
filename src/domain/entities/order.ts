@@ -1,9 +1,15 @@
+import { OrderStatus } from '../enums/order-status.enum';
+import { Client } from './client';
+import { Product } from './product';
+
 export class Order {
   constructor(
-    public id: string,
-    public customerId: string | null,
-    public status: 'RECEIVED' | 'PREPARING' | 'READY' | 'FINISHED',
-    public items: Array<{ productId: string; quantity: number }>,
-    public totalAmount: number
+    public status: OrderStatus,
+    public totalAmount: string,
+    public dtCreated: Date,
+    public dtModified: Date,
+    public Client?: Client,
+    public Products?: Product[],
+    public id?: string,
   ) {}
 }

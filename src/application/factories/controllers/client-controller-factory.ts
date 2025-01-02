@@ -7,11 +7,11 @@ import { ClientDBRepository } from '@/infrastructure/driven/db/repositories/clie
 import { ClientController } from '@/infrastructure/driver/http/controllers/client-controller';
 
 export function makeClientController(): ClientController {
-  const ClientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
+  const clientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
 
-  const createClientUseCase = new CreateClientUseCase(ClientRepository);
-  const findClientByCpfUseCase = new FindClientByCpfUseCase(ClientRepository);
-  const findAllClientsUseCase = new FindAllClientsUseCase(ClientRepository);
+  const createClientUseCase = new CreateClientUseCase(clientRepository);
+  const findClientByCpfUseCase = new FindClientByCpfUseCase(clientRepository);
+  const findAllClientsUseCase = new FindAllClientsUseCase(clientRepository);
 
   return new ClientController(
     createClientUseCase,

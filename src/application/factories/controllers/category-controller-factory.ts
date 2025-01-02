@@ -7,11 +7,11 @@ import { CategoryDBRepository } from '@/infrastructure/driven/db/repositories/ca
 import { CategoryController } from '@/infrastructure/driver/http/controllers/category-controller';
 
 export function makeCategoryController(): CategoryController {
-  const CategoryRepository = new CategoryDBRepository(AppDataSource.getRepository(CategoryDb));
+  const categoryRepository = new CategoryDBRepository(AppDataSource.getRepository(CategoryDb));
 
-  const createCategoryUseCase = new CreateCategoryUseCase(CategoryRepository)
-  const findAllCategoriesUseCase = new FindAllCategoriesUseCase(CategoryRepository)
-  const findCategoryProductsByIdUseCase = new FindCategoryProductsByIdUseCase(CategoryRepository)
+  const createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
+  const findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository)
+  const findCategoryProductsByIdUseCase = new FindCategoryProductsByIdUseCase(categoryRepository)
 
   return new CategoryController(
     createCategoryUseCase,

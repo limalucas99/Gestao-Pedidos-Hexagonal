@@ -8,7 +8,7 @@ export class Product {
     public description?: string,
     public category?: Category,
     public isActive?: boolean,
-    public orders?: Order[],
+    public Orders?: Order[],
     public id?: string,
   ) {}
 }
