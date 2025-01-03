@@ -1,8 +1,7 @@
-import { IsDefined, IsString, MinLength } from 'class-validator';
+import { IsDefined, IsString } from 'class-validator';
 
 export class FindClientByCpfDto {
   @IsDefined()
   @IsString()
-  @MinLength(3)
   cpf: string;
 }

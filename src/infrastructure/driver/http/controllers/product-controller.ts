@@ -32,11 +32,12 @@ export class ProductController {
 
   findById = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const errors = validateDto(FindProductByIdDto, {id: req.params.id});
+      const id = req.params.id;
+      const errors = validateDto(FindProductByIdDto, {id});
       if (errors.length > 0) {
         return res.status(400).json({ message: errors });
       }
-      const product = await this.findProductByIdUseCase.execute({id: req.params.id});
+      const product = await this.findProductByIdUseCase.execute({id});
       if (!product) return res.status(404).json({message: "Product not found!"})
       return res.status(200).json(product);
     } catch (error: unknown) {
@@ -46,14 +47,15 @@ export class ProductController {
 
   edit = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const errors = validateDto(EditProductDto, {id: req.params.id, ...req.body});
+      const id = req.params.id;
+      const errors = validateDto(EditProductDto, {id, ...req.body});
       if (errors.length > 0) {
         return res.status(400).json({ message: errors });
       }
       if (Object.keys(req.body).length === 0) {
         return res.status(400).json({ message: "Body cannot be empty!" });
       }
-      await this.editProductUseCase.execute({id: req.params.id, ...req.body});
+      await this.editProductUseCase.execute({id, ...req.body});
       return res.status(200).json({message: "product updated sucessfully!"});
     } catch (error: unknown) {
       return res.status(500).json({ message: error });
@@ -62,11 +64,12 @@ export class ProductController {
 
   delete = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const errors = validateDto(DeleteProductDto, {id: req.params.id});
+      const id = req.params.id;
+      const errors = validateDto(DeleteProductDto, {id});
       if (errors.length > 0) {
         return res.status(400).json({ message: errors });
       }
-      await this.deleteProductUseCase.execute({id: req.params.id});
+      await this.deleteProductUseCase.execute({id});
       return res.status(200).json({message: "product deleted sucessfully!"});
     } catch (error: unknown) {
       return res.status(500).json({ message: error });

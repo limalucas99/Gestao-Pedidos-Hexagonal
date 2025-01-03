@@ -28,8 +28,10 @@ export class ClientController {
 
   findByCpf = async (req: Request, res: Response): Promise<Response> => {
     try {
-      // validar com base no DTO
-      const client = await this.findClientByCpfUseCase.execute({cpf: req.params.cpf});
+      const cpf = req.params.cpf;
+      const errors = validateDto(FindClientByCpfDto, {cpf});
+      if (errors.length > 0) return res.status(400).json({ message: errors });
+      const client = await this.findClientByCpfUseCase.execute({cpf});
       if (!client) return res.status(404).json()
       return res.status(200).json(client);
     } catch (error: unknown) {

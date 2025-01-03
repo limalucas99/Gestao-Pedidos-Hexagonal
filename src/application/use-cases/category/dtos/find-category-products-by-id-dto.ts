@@ -1,7 +1,6 @@
-import { IsDefined, IsInt, IsUUID, isUUID } from 'class-validator';
+import { IsDefined, IsInt, IsUUID } from 'class-validator';
 
 export class FindCategoryProductsByIdDto {
-
   @IsDefined()
   @IsUUID()
   id: string;

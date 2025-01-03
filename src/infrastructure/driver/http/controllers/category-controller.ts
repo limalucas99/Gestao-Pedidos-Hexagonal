@@ -5,6 +5,7 @@ import { CreateCategoryDto } from '@/application/use-cases/category/dtos/create-
 import { FindAllCategories } from '@/application/use-cases/category/ports/find-all-categories';
 import { FindAllCategoriesDto } from '@/application/use-cases/category/dtos/find-all-categories-dto';
 import { FindCategoryProductsById } from '@/application/use-cases/category/ports/find-category-products-by-id';
+import { FindCategoryProductsByIdDto } from '@/application/use-cases/category/dtos/find-category-products-by-id-dto';
 
 export class CategoryController {
   constructor(
@@ -39,10 +40,11 @@ export class CategoryController {
 
   findCategoryProductsById = async (req: Request, res: Response): Promise<Response> => {
     try {
-      // validar com base no DTO
       const id = req.params.id;
       const page = Number(req.query.page);
       const pageSize = Number(req.query.pageSize);
+      const errors = validateDto(FindCategoryProductsByIdDto, {id, page, pageSize});
+      if (errors.length > 0) return res.status(400).json({ message: errors });
       const categoryProducts = await this.findCategoryProductsByIdUseCase.execute({id, page, pageSize});
       return res.status(200).json(categoryProducts);
     } catch (error: unknown) {

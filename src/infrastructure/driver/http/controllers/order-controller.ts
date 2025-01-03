@@ -43,11 +43,12 @@ export class OrderController {
 
     findById = async (req: Request, res: Response): Promise<Response> => {
       try {
-        const errors = validateDto(FindOrderByIdDto, {id: req.params.id});
+        const id = req.params.id;
+        const errors = validateDto(FindOrderByIdDto, {id});
         if (errors.length > 0) {
           return res.status(400).json({ message: errors });
         }
-        const order = await this.findOrderByIdUseCase.execute({id: req.params.id});
+        const order = await this.findOrderByIdUseCase.execute({id});
         if (!order) return res.status(404).json({ message: "Order not found" });
         return res.status(200).json(order);
       } catch (error: unknown) {

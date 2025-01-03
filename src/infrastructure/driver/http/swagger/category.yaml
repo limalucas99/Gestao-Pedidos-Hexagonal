@@ -1,0 +1,71 @@
+tags:
+  - name: Categories
+    description: Endpoints associated with categories
+
+paths:
+  /v1/categories:
+    post:
+      summary: Create a new category
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategoryDto"
+      responses:
+        201:
+          description: Category created successfully
+        400:
+          description: Invalid data
+
+    get:
+      summary: Find all categories
+      tags:
+        - Categories
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllCategoriesDto/properties/page"
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllCategoriesDto/properties/pageSize"
+      responses:
+        200:
+          description: A list of categories
+        400:
+          description: Invalid data
+
+  /v1/categories/{id}/products:
+    get:
+      summary: Find all products associated with a category
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindCategoryProductsByIdDto/properties/id"
+        - in: query
+          name: page
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindCategoryProductsByIdDto/properties/page"
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindCategoryProductsByIdDto/properties/pageSize"
+      responses:
+        200:
+          description: A list of products in the category
+        400:
+          description: Invalid data
+        404:
+          description: Category not found
