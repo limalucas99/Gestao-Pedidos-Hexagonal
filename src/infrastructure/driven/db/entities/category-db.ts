@@ -12,7 +12,7 @@ export class CategoryDb {
   @Column({ type: 'text' })
   description: string;
 
-  @OneToMany(() => ProductDb, product => product.category)
-  products: ProductDb[];
+  @OneToMany(() => ProductDb, product => product.Category)
+  Products: ProductDb[];
 
 }

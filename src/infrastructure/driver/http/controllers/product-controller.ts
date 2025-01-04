@@ -24,6 +24,7 @@ export class ProductController {
         return res.status(400).json({ message: errors });
       }
       const product = await this.createProductUseCase.execute(req.body);
+      if (!product) return res.status(400).json({message: "Invalid input"});
       return res.status(201).json(product);
       } catch (error: unknown) {
       return res.status(500).json({ message: "Internal server error trying to create a product" });

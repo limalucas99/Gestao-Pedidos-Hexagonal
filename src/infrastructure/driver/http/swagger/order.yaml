@@ -1,0 +1,61 @@
+tags:
+  - name: Orders
+    description: Endpoints associated with orders
+
+paths:
+  /v1/orders:
+    post:
+      summary: Create a new order
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderDto"
+      responses:
+        201:
+          description: Order created successfully
+        400:
+          description: Invalid data
+
+    get:
+      summary: Find all orders
+      tags:
+        - Orders
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllOrdersDto/properties/page"
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllOrdersDto/properties/pageSize"
+      responses:
+        200:
+          description: A list of orders
+        400:
+          description: Invalid data
+
+  /v1/orders/{id}:
+    get:
+      summary: Find an order by ID
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindOrderByIdDto/properties/id"
+      responses:
+        200:
+          description: Order found
+        400:
+          description: Invalid data
+        404:
+          description: Order not found

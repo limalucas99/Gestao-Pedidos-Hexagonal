@@ -19,9 +19,9 @@ export class ProductDb {
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
-  @ManyToOne(() => CategoryDb, category => category.products)
-  category: CategoryDb;
+  @ManyToOne(() => CategoryDb, category => category.Products)
+  Category: CategoryDb;
 
-  @ManyToMany(() => OrderDb, (order) => order.products)
-  orders: OrderDb[]
+  @ManyToMany(() => OrderDb, (order) => order.Products)
+  Orders: OrderDb[]
 }

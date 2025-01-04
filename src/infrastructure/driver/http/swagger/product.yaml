@@ -1,0 +1,82 @@
+tags:
+  - name: Products
+    description: Endpoints associated with products
+
+paths:
+  /v1/products:
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductDto"
+      responses:
+        201:
+          description: Product created successfully
+        400:
+          description: Invalid data
+
+  /v1/products/{id}:
+    get:
+      summary: Find a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindProductByIdDto/properties/id"
+      responses:
+        200:
+          description: Product found
+        400:
+          description: Invalid data
+        404:
+          description: Product not found
+
+    patch:
+      summary: Edit a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/schemas/EditProductDto/properties/id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditProductDto"
+      responses:
+        200:
+          description: Product updated successfully
+        400:
+          description: Invalid data
+        404:
+          description: Product not found
+
+    delete:
+      summary: Delete a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            $ref: "#/components/schemas/DeleteProductDto/properties/id"
+      responses:
+        200:
+          description: Product deleted successfully
+        400:
+          description: Invalid data
+        404:
+          description: Product not found

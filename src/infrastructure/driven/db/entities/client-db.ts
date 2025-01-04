@@ -15,6 +15,6 @@ export class ClientDb {
   @Column({ type: 'text' })
   cpf: string;
 
-  @OneToMany(() => OrderDb, order => order.client)
-  orders: OrderDb[];
+  @OneToMany(() => OrderDb, order => order.Client)
+  Orders: OrderDb[];
 }

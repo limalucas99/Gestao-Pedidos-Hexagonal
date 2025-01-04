@@ -1,0 +1,61 @@
+tags:
+  - name: Clients
+    description: Endpoints associated with clients
+
+paths:
+  /v1/clients:
+    post:
+      summary: Create a new client
+      tags:
+        - Clients
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateClientDto"
+      responses:
+        201:
+          description: Client created successfully
+        400:
+          description: Invalid data
+
+    get:
+      summary: Find all clients
+      tags:
+        - Clients
+      parameters:
+        - in: query
+          name: page
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllClientsDto/properties/page"
+        - in: query
+          name: pageSize
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindAllClientsDto/properties/pageSize"
+      responses:
+        200:
+          description: A list of clients
+        400:
+          description: Invalid data
+
+  /v1/clients/{cpf}:
+    get:
+      summary: Find a client by CPF
+      tags:
+        - Clients
+      parameters:
+        - in: path
+          name: cpf
+          required: true
+          schema:
+            $ref: "#/components/schemas/FindClientByCpfDto/properties/cpf"
+      responses:
+        200:
+          description: Client found
+        400:
+          description: Invalid data
+        404:
+          description: Client not found

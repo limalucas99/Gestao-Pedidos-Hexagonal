@@ -20,11 +20,11 @@ export class OrderDb {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   dtModified: Date;
 
-  @ManyToOne(() => ClientDb, client => client.orders)
-  client: ClientDb;
+  @ManyToOne(() => ClientDb, client => client.Orders)
+  Client: ClientDb;
 
-  @ManyToMany(() => ProductDb, product => product.orders)
+  @ManyToMany(() => ProductDb, product => product.Orders)
   @JoinTable({name: 'order_products'})
-  products: ProductDb[]
+  Products: ProductDb[]
   
 }

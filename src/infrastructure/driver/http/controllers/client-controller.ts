@@ -46,7 +46,7 @@ export class ClientController {
       const errors = validateDto(FindAllClientsDto, {page, pageSize});
       if (errors.length > 0) return res.status(400).json({ message: errors });
       const clients = await this.findAllClientsUseCase.execute({page, pageSize});
-      return res.status(200).json({clients})
+      return res.status(200).json(clients)
     } catch (error: unknown) {
       return res.status(500).json({ message: error });
     }

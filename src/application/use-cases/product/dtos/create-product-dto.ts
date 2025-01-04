@@ -14,10 +14,6 @@ export class CreateProductDto {
   @IsString()
   price: string;
 
-  @IsBoolean()
-  @IsOptional()
-  isActive?: boolean;
-
   @IsDefined()
   @IsUUID()
   categoryId: string;
