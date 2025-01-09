@@ -7,15 +7,20 @@ import { CategoryDBRepository } from '@/infrastructure/driven/db/repositories/ca
 import { CategoryController } from '@/infrastructure/driver/http/controllers/category-controller';
 
 export function makeCategoryController(): CategoryController {
-  const categoryRepository = new CategoryDBRepository(AppDataSource.getRepository(CategoryDb));
+  try {
+    const categoryRepository = new CategoryDBRepository(AppDataSource.getRepository(CategoryDb));
 
-  const createCategoryUseCase = new CreateCategoryUseCase(categoryRepository)
-  const findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository)
-  const findCategoryProductsByIdUseCase = new FindCategoryProductsByIdUseCase(categoryRepository)
+    const createCategoryUseCase = new CreateCategoryUseCase(categoryRepository);
+    const findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository);
+    const findCategoryProductsByIdUseCase = new FindCategoryProductsByIdUseCase(categoryRepository);
 
-  return new CategoryController(
-    createCategoryUseCase,
-    findAllCategoriesUseCase,
-    findCategoryProductsByIdUseCase
-  );
+    return new CategoryController(
+      createCategoryUseCase,
+      findAllCategoriesUseCase,
+      findCategoryProductsByIdUseCase
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to create Category Controller');
+  }
 }

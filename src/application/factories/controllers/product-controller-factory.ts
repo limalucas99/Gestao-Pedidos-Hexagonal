@@ -32,6 +32,6 @@ export function makeProductController(): ProductController {
     );
   } catch (error) {
     console.log(error);
-    throw new Error(`Error ${error} on product controller factory`);
+    throw new Error(`Error ${error} on Product Controller`);
   }
 }

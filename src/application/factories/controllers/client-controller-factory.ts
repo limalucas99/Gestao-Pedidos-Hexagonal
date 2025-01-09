@@ -7,15 +7,20 @@ import { ClientDBRepository } from '@/infrastructure/driven/db/repositories/clie
 import { ClientController } from '@/infrastructure/driver/http/controllers/client-controller';
 
 export function makeClientController(): ClientController {
-  const clientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
+  try {
+    const clientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
 
-  const createClientUseCase = new CreateClientUseCase(clientRepository);
-  const findClientByCpfUseCase = new FindClientByCpfUseCase(clientRepository);
-  const findAllClientsUseCase = new FindAllClientsUseCase(clientRepository);
+    const createClientUseCase = new CreateClientUseCase(clientRepository);
+    const findClientByCpfUseCase = new FindClientByCpfUseCase(clientRepository);
+    const findAllClientsUseCase = new FindAllClientsUseCase(clientRepository);
 
-  return new ClientController(
-    createClientUseCase,
-    findClientByCpfUseCase,
-    findAllClientsUseCase,
-  );
+    return new ClientController(
+      createClientUseCase,
+      findClientByCpfUseCase,
+      findAllClientsUseCase,
+    );
+  } catch (error) {
+    console.error('Error creating ClientController:', error);
+    throw new Error('Failed to create Client Controller');
+  }
 }

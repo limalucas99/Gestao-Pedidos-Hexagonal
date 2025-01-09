@@ -22,7 +22,7 @@ export class CreateProductUseCase implements CreateProduct {
       return this.productRepository.create(product);
     } catch (error) {
       console.log(error);
-      throw new Error(`Error ${error} on product creation`);
+      throw new Error(`Error ${error} on product creation use-case`);
     }
   }
 }

@@ -42,6 +42,7 @@ export class CreateOrderUseCase implements CreateOrder {
     return this.orderRepository.create(order);
     } catch (error) {
       console.log(error);
+      throw new Error(`Error ${error} on create order use-case`)
     }
 
   }

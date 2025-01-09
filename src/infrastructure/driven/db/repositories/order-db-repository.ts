@@ -16,23 +16,30 @@ export class OrderDBRepository implements OrderRepository {
   }
 
   async findAllOrders(page: number, pageSize: number): Promise<PaginatedResult<Order>> {
-    const skip = (page - 1) * pageSize;
-    const [data, total] = await this.repository.findAndCount({
-      relations: ['Client'],
-      skip,
-      take: pageSize,
-    });
-    return {
-      data,
-      totalCount: total,
+    try {
+      const skip = (page - 1) * pageSize;
+      const [data, total] = await this.repository.findAndCount({
+        relations: ['Client'],
+        skip,
+        take: pageSize,
+      });
+      return {
+        data,
+        totalCount: total,
+      };
+    } catch (error) {
+      throw new Error(`Error ${error} on finding all orders`);
     }
   }
 
   async findOrderById(id: string): Promise<Order | null> {
-    return this.repository.findOne({
-      where: { id },
-      relations: ['Products', 'Client'],
-    });
+    try {
+      return await this.repository.findOne({
+        where: { id },
+        relations: ['Products', 'Client'],
+      });
+    } catch (error) {
+      throw new Error(`Error ${error} on finding order by id`);
+    }
   }
-
 }

@@ -11,17 +11,22 @@ import { ProductDBRepository } from '@/infrastructure/driven/db/repositories/pro
 import { OrderController } from '@/infrastructure/driver/http/controllers/order-controller';
 
 export function makeOrderController(): OrderController {
-  const orderRepository = new OrderDBRepository(AppDataSource.getRepository(OrderDb));
-  const clientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
-  const productRepository = new ProductDBRepository(AppDataSource.getRepository(ProductDb));
+  try {
+    const orderRepository = new OrderDBRepository(AppDataSource.getRepository(OrderDb));
+    const clientRepository = new ClientDBRepository(AppDataSource.getRepository(ClientDb));
+    const productRepository = new ProductDBRepository(AppDataSource.getRepository(ProductDb));
 
-  const createOrderUseCase = new CreateOrderUseCase(orderRepository, clientRepository, productRepository);
-  const findAllOrdersUseCase = new FindAllOrdersUseCase(orderRepository);
-  const findOrderByIdUseCase = new FindOrderByIdUseCase(orderRepository);
+    const createOrderUseCase = new CreateOrderUseCase(orderRepository, clientRepository, productRepository);
+    const findAllOrdersUseCase = new FindAllOrdersUseCase(orderRepository);
+    const findOrderByIdUseCase = new FindOrderByIdUseCase(orderRepository);
 
-  return new OrderController(
-    createOrderUseCase,
-    findAllOrdersUseCase,
-    findOrderByIdUseCase
-  );
+    return new OrderController(
+      createOrderUseCase,
+      findAllOrdersUseCase,
+      findOrderByIdUseCase
+    );
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to create Order Controller');
+  }
 }
