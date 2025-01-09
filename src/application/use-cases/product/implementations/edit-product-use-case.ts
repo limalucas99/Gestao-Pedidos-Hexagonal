@@ -19,14 +19,14 @@ export class EditProductUseCase implements EditProduct {
       if (!category) {
         throw new Error('Category not found');
       }
-      existingProduct.category = category;
+      existingProduct.Category = category;
     }
 
     const updatedProduct = new Product(
       input.name ?? existingProduct.name,
       input.price ?? existingProduct.price,
       input.description ?? existingProduct.description,
-      category ?? existingProduct.category,
+      category ?? existingProduct.Category,
     );
 
     await this.productRepository.edit(input.id, updatedProduct);

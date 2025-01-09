@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { validateDto } from '@/shared/utils/validate-requests-dto';
 import { CreateOrder } from '@/application/use-cases/order/ports/create-order';
 import { CreateOrderDto } from '@/application/use-cases/order/dtos/create-order-dto';
 import { FindAllOrders } from '@/application/use-cases/order/ports/find-all-orders';
@@ -16,10 +15,6 @@ export class OrderController {
 
   create = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const errors = validateDto(CreateOrderDto, req.body);
-      if (errors.length > 0) {
-        return res.status(400).json({ message: errors });
-      }
       const order = await this.createOrderUseCase.execute(req.body);
       if (!order) return res.status(400).json({ message: "Invalid body request" });
       return res.status(201).json(order);
@@ -31,24 +26,18 @@ export class OrderController {
     findAll = async (req: Request, res: Response): Promise<Response> => {
       try {
         const page = Number(req.query.page);
-        const pageSize = Number(req.query.pageSize);
-        const errors = validateDto(FindAllOrdersDto, {page, pageSize});
-        if (errors.length > 0) return res.status(400).json({ message: errors });        
+        const pageSize = Number(req.query.pageSize);    
         const orders = await this.findAllOrdersUseCase.execute({page, pageSize});
         return res.status(200).json(orders);
       } catch (error: unknown) {
+        console.log(error);
         return res.status(500).json({ message: "Internal server error trying to find all orders" });
       }
     }
 
     findById = async (req: Request, res: Response): Promise<Response> => {
       try {
-        const id = req.params.id;
-        const errors = validateDto(FindOrderByIdDto, {id});
-        if (errors.length > 0) {
-          return res.status(400).json({ message: errors });
-        }
-        const order = await this.findOrderByIdUseCase.execute({id});
+        const order = await this.findOrderByIdUseCase.execute({id: req.params.id});
         if (!order) return res.status(404).json({ message: "Order not found" });
         return res.status(200).json(order);
       } catch (error: unknown) {

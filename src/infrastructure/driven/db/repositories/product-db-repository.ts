@@ -16,7 +16,8 @@ export class ProductDBRepository implements ProductRepository {
   }
 
   async findById(id: string): Promise<Product | null> {
-    return this.repository.findOne({ where: { id, isActive: true }, relations: ['Category'] });
+    return this.repository.findOne({ where: { id, isActive: true }, 
+      relations: ['Category'] });
   }
 
   async edit(id: string, product: Product): Promise<void> {
