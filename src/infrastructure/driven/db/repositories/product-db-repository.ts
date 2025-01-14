@@ -39,4 +39,12 @@ export class ProductDBRepository implements ProductRepository {
       throw new Error(`Error ${error} on deleting product`);
     }
   }
+
+  async findAllProducts(): Promise<Product[]> {
+    try {
+      return this.repository.find({ where: { isActive: true }, relations: ['Category'] });
+    } catch (error) {
+      throw new Error(`Error ${error} on finding all products`);
+    }
+  }
 }
