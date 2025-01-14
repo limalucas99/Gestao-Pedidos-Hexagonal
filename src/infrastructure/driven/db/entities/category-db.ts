@@ -6,10 +6,10 @@ export class CategoryDb {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 30 })
   name: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'varchar', length: 300 })
   description: string;
 
   @OneToMany(() => ProductDb, product => product.Category)

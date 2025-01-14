@@ -12,7 +12,7 @@ export class ClientDb {
   @Column({ type: 'varchar', length: 100 })
   email: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'varchar', length: 11 })
   cpf: string;
 
   @OneToMany(() => OrderDb, order => order.Client)

@@ -11,7 +11,7 @@ export class OrderDb {
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.RECEIVED })
   status: OrderStatus;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'numeric', precision: 10, scale: 2 })
   totalAmount: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

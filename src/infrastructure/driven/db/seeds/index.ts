@@ -9,11 +9,9 @@ export const runSeeds = async () => {
     await seedClients();
     await seedProducts();
     await seedOrders();
+    console.log('Seeds executed successfully :D !');
   } catch (error: unknown) {
     console.error('Error running seeds', error);
-  }
-  finally {
-    console.log('Seeds executed successfully :D !');
   }
 };
 
