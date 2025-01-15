@@ -1,19 +1,18 @@
-import { IsDefined, IsEmail, IsString, MinLength } from 'class-validator';
+import { IsDefined, IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class CreateClientDto {
   
   @IsDefined()
   @IsString()
-  @MinLength(3)
+  @MaxLength(255)
   name: string;
 
   @IsDefined()
   @IsEmail()
-  @MinLength(3)
   email: string;
   
   @IsDefined()
   @IsString()
-  @MinLength(3)
+  @MaxLength(11)
   cpf: string;
 }

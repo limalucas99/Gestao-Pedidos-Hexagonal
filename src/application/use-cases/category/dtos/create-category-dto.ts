@@ -1,14 +1,16 @@
-import { IsDefined, IsString, MinLength } from 'class-validator';
+import { IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class CreateCategoryDto {
   
   @IsDefined()
   @IsString()
-  @MinLength(3)
+  @MaxLength(30)
+  @MinLength(5)
   name: string;
 
   @IsDefined()
   @IsString()
-  @MinLength(3)
+  @MaxLength(300)
+  @MinLength(10)
   description: string;
 }

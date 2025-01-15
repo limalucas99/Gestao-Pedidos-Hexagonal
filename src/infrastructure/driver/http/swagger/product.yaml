@@ -54,7 +54,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EditProductDto"
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 60
+                description:
+                  type: string
+                  maxLength: 500
+                price:
+                  type: string
+                  maxLength: 14
+                categoryId:
+                  type: string
+                  format: uuid
+      example:
+        name: "Camiseta Básica"
+        description: "Uma camiseta confortável e versátil."
+        price: "49.99"
+        categoryId: "123e4567-e89b-12d3-a456-426614174000"
       responses:
         200:
           description: Product updated successfully
