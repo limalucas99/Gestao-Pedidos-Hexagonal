@@ -9,8 +9,8 @@ Certifique-se de ter as seguintes ferramentas instaladas em seu ambiente:
 ### **Passo a Passo**
 1. **Clone o repositório:**
       ```bash
-      git clone https://github.com/limalucas99/Gestao-de-Pedidos---Arquitetura-Hexagonal.git
-      cd Gestao-de-Pedidos---Arquitetura-Hexagonal
+      git clone https://github.com/limalucas99/Gestao-Pedidos-Hexagonal.git
+      cd Gestao-Pedidos-Hexagonal
       ```
 
 2. **Configure as variáveis de ambiente:**
