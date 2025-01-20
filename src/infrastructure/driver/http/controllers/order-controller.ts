@@ -5,12 +5,14 @@ import { FindAllOrders } from '@/application/use-cases/order/ports/find-all-orde
 import { FindAllOrdersDto } from '@/application/use-cases/order/dtos/find-all-orders-dto';
 import { FindOrderByIdDto } from '@/application/use-cases/order/dtos/find-order-by-id-dto';
 import { FindOrderById } from '@/application/use-cases/order/ports/find-order-by-id';
+import { Checkout } from '@/application/use-cases/order/ports/checkout';
 
 export class OrderController {
   constructor(
     private createOrderUseCase: CreateOrder,
     private findAllOrdersUseCase: FindAllOrders,
-    private findOrderByIdUseCase: FindOrderById
+    private findOrderByIdUseCase: FindOrderById,
+    private checkoutUseCase: Checkout
   ) {}
 
   create = async (req: Request, res: Response): Promise<Response> => {
@@ -42,6 +44,17 @@ export class OrderController {
         return res.status(200).json(order);
       } catch (error: unknown) {
         return res.status(500).json({ message: "Internal server error trying to find an order by id" });
+      }
+    }
+
+    checkout = async (req: Request, res: Response): Promise<Response> => {
+      try {
+        const order = await this.findOrderByIdUseCase.execute({id: req.params.id});
+        if (!order) return res.status(404).json({ message: "Order not found" });
+        await this.checkoutUseCase.execute(req.params.id);
+        return res.status(200).json({ message: "Order finished!" });
+      } catch (error: unknown) {
+        return res.status(500).json({ message: "Internal server error trying to checkout an order" });
       }
     }
     

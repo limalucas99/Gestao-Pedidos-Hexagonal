@@ -1,3 +1,4 @@
+import { CheckoutUseCase } from '@/application/use-cases/order/implementations/checkout-use-case';
 import { CreateOrderUseCase } from '@/application/use-cases/order/implementations/create-order-use-case';
 import { FindAllOrdersUseCase } from '@/application/use-cases/order/implementations/find-all-orders-use-case';
 import { FindOrderByIdUseCase } from '@/application/use-cases/order/implementations/find-order-by-id-use-case';
@@ -19,11 +20,13 @@ export function makeOrderController(): OrderController {
     const createOrderUseCase = new CreateOrderUseCase(orderRepository, clientRepository, productRepository);
     const findAllOrdersUseCase = new FindAllOrdersUseCase(orderRepository);
     const findOrderByIdUseCase = new FindOrderByIdUseCase(orderRepository);
+    const checkoutUseCase = new CheckoutUseCase(orderRepository);
 
     return new OrderController(
       createOrderUseCase,
       findAllOrdersUseCase,
-      findOrderByIdUseCase
+      findOrderByIdUseCase,
+      checkoutUseCase
     );
   } catch (error) {
     console.log(error);

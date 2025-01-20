@@ -3,6 +3,7 @@ import { Order } from '@/domain/entities/order';
 import { OrderDb } from '../entities/order-db';
 import { OrderRepository } from '@/domain/repositories/order-repository';
 import { PaginatedResult } from '@/shared/interfaces/pagination-result';
+import { OrderStatus } from '@/domain/enums/order-status.enum';
 
 export class OrderDBRepository implements OrderRepository {
   constructor(private repository: Repository<OrderDb>) {}
@@ -40,6 +41,14 @@ export class OrderDBRepository implements OrderRepository {
       });
     } catch (error) {
       throw new Error(`Error ${error} on finding order by id`);
+    }
+  }
+
+  async checkout(id: string): Promise<void> {
+    try {
+      await this.repository.update(id, { status: OrderStatus.FINISHED });
+    } catch (error) {
+      throw new Error(`Error ${error} on checkout order`);
     }
   }
 }

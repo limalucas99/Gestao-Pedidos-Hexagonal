@@ -59,3 +59,22 @@ paths:
           description: Invalid data
         404:
           description: Order not found
+  /v1/orders/{id}/checkout:
+    post:
+      summary: send an order to checkout
+      tags:
+        - Orders
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Order finished
+        400:
+          description: Invalid data
+        404:
+          description: Order not found

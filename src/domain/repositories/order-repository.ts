@@ -4,4 +4,5 @@ export interface OrderRepository {
   create(order: Order): Promise<Order>;
   findAllOrders(page: number, pageSize: number): Promise<PaginatedResult<Order>>;
   findOrderById(id: string): Promise<Order | null>;
+  checkout(id: string): Promise<void>;
 }

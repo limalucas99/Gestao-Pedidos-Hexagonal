@@ -14,5 +14,7 @@ router.get('', validateRequestMiddleware(FindAllOrdersDto, ["page", "pageSize"])
 
 router.get('/:id', validateRequestMiddleware(FindOrderByIdDto), orderController.findById);
 
+router.post('/:id/checkout', orderController.checkout);
+
 
 export default router;
