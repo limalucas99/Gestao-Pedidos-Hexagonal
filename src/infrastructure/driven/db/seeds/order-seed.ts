@@ -24,19 +24,32 @@ export const seedOrders = async () => {
   const orders: Order[] = [];
 
   for (let i = 0; i < 10; i++) { 
-    const productQtt = Math.floor(Math.random() * 4);
+    const productQtt = Math.floor(Math.random() * 4) + 1;
     let totalAmount: number = 0;
-    const orderProducts: Product[] = [...Array(productQtt)].map(() => {
-      const prdIndex = Math.floor(Math.random() * products.length)
-      totalAmount += parseFloat(products[prdIndex].price);
-      return products[prdIndex];
-    })
+    
+    const orderProducts: Product[] = [];
+    const usedProductsIndexes = new Set<number>();
+
+    while (orderProducts.length < productQtt) {
+      const prdIndex = Math.floor(Math.random() * products.length);
+
+      if (!usedProductsIndexes.has(prdIndex)) {
+        usedProductsIndexes.add(prdIndex);
+        totalAmount += parseFloat(products[prdIndex].price);
+        orderProducts.push(products[prdIndex]);
+      }
+    }
+
+    const client = Math.random() < 0.5 
+    ? undefined 
+    : clients[Math.floor(Math.random() * clients.length)];
+
     const order: Order = new Order(
       OrderStatus.RECEIVED,
       totalAmount.toString(),
       new Date(),
       new Date(),
-      clients[Math.floor(Math.random() * clients.length)],
+      client,
       orderProducts,
     )
     orders.push(order);

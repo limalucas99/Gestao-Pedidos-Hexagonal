@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
   port: 5432,
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-  database: 'order-management',
+  database: process.env.POSTGRES_DB,
   synchronize: true,
   logging: ['error', 'warn'],
   entities: [ProductDb, ClientDb, CategoryDb, OrderDb], 
