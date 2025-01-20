@@ -53,7 +53,7 @@ O projeto foi desenvolvido utilizando a arquitetura hexagonal, também conhecida
 ---
 
 ### **DDD e Event Storming**
-A modelagem do sistema foi realizada utilizando as práticas de **Domain-Driven Design (DDD)**, incluindo **Event Storming** para mapear os fluxos de eventos e a estrutura do domínio. A documentação visual dessa modelagem foi feita utilizando o **MIRO** e pode ser acessada através do seguinte link:
+A modelagem do sistema foi realizada utilizando as práticas de **Domain-Driven Design (DDD)**, incluindo **Event Storming** para mapear os fluxos de eventos e a estrutura do domínio. A documentação visual dessa modelagem foi feita utilizando o **MIRO** e pode ser acessada por meio do seguinte link:
 
 [Link para os Diagramas de DDD e Event Storming no MIRO](https://miro.com/app/board/uXjVLG23_EE=/)
 
